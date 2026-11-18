@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<!-- El código viaja en la URL: que no salga en la cabecera Referer al pulsar el enlace de la tienda. -->
+<meta name="referrer" content="no-referrer">
+<title>Únete a un grupo · PadelPique</title>
+<link rel="stylesheet" href="estilo.css">
+<link rel="icon" href="icono.png">
+</head>
+<body>
+<main>
+<div class="langbar" role="group" aria-label="Idioma / Language">
+  <button type="button" id="lang-es" lang="es">Español</button>
+  <button type="button" id="lang-en" lang="en">English</button>
+</div>
+
+<div class="hero">
+  <img src="icono.png" alt="" width="72" height="72">
+  <div>
+    <h1>PadelPique</h1>
+    <p class="muted" lang="es">Invitación a un grupo de pádel</p>
+    <p class="muted" lang="en">Invitation to a padel group</p>
+  </div>
+</div>
+
+<noscript>
+  <p class="error" lang="es">Esta página necesita JavaScript para mostrar tu código. Pídele a quien te invitó que te lo escriba: tiene 6 caracteres.</p>
+  <p class="error" lang="en">This page needs JavaScript to show your code. Ask whoever invited you to type it for you: it has 6 characters.</p>
+</noscript>
+
+<section id="valid" hidden>
+  <h2 lang="es">Tu código de invitación</h2>
+  <h2 lang="en">Your invitation code</h2>
+  <div class="code" id="code" role="img"></div>
+
+  <div class="actions">
+    <a class="btn" id="open-app" href="#">
+      <span lang="es">Abrir en la app</span><span lang="en">Open in the app</span>
+    </a>
+    <button class="btn secondary" type="button" id="copy">
+      <span lang="es">Copiar código</span><span lang="en">Copy code</span>
+    </button>
+    <a class="btn secondary" id="store" href="#" hidden>
+      <span lang="es">Descargar en la App Store</span><span lang="en">Download on the App Store</span>
+    </a>
+  </div>
+
+  <div class="card" lang="es">
+    <p><strong>¿No tienes la app?</strong> Instala PadelPique, abre la app, toca <strong>Unirme con código</strong> y escribe o pega este código.</p>
+    <p class="muted">Si la app está instalada pero no se abre sola, pulsa «Abrir en la app».</p>
+  </div>
+  <div class="card" lang="en">
+    <p><strong>Don't have the app?</strong> Install PadelPique, open it, tap <strong>Join with a code</strong> and type or paste this code.</p>
+    <p class="muted">If the app is installed but does not open by itself, tap “Open in the app”.</p>
+  </div>
+</section>
+
+<section id="invalid" class="error" hidden>
+  <p lang="es"><strong>Este enlace no tiene un código válido.</strong> El código tiene 6 caracteres y no usa las letras O ni I ni los números 0 ni 1. Pídele a quien te invitó que te lo reenvíe: puede que el administrador haya generado uno nuevo.</p>
+  <p lang="en"><strong>This link does not contain a valid code.</strong> The code has 6 characters and never uses the letters O or I or the digits 0 or 1. Ask whoever invited you to send it again: the admin may have generated a new one.</p>
+</section>
+
+<p class="nav"><a href="./">PadelPique</a> · <a href="soporte.html" lang="es">Ayuda</a><a href="soporte.html#en" lang="en">Help</a> · <a href="privacidad.html" lang="es">Privacidad</a><a href="privacidad.html#en" lang="en">Privacy</a></p>
+</main>
+<script src="unirse.js"></script>
+<script>PadelPiqueJoin.init();</script>
+</body>
+</html>
