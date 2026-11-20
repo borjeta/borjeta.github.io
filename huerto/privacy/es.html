@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Política de privacidad – Soakup</title>
+<meta name="description" content="Cómo trata Soakup tus datos: los datos de tu huerto se quedan en tu móvil, a los servicios de clima solo se envía una ubicación aproximada y los anuncios usan Google AdMob con tu consentimiento.">
+<style>
+  :root {
+    --bg: #ffffff; --fg: #1b1f1b; --muted: #55605a; --accent: #1b5e20; --line: #d6ddd8; --card: #f4f7f4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #111512; --fg: #e6ece7; --muted: #a3afa7; --accent: #8bd18f; --line: #2c352e; --card: #1a201b; }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 46rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  h1 { font-size: 1.8rem; line-height: 1.25; margin: 0 0 .25rem; }
+  h2 { font-size: 1.2rem; margin: 2rem 0 .5rem; padding-top: .5rem; border-top: 1px solid var(--line); }
+  p, ul, ol { margin: .6rem 0; }
+  li { margin: .3rem 0; }
+  a { color: var(--accent); }
+  .meta { color: var(--muted); font-size: .9rem; }
+  .summary { background: var(--card); border: 1px solid var(--line); border-radius: .75rem; padding: .75rem 1.1rem; margin: 1.25rem 0; }
+  .summary ul { padding-left: 1.2rem; }
+  .table-wrap { overflow-x: auto; margin: .8rem 0; }
+  table { border-collapse: collapse; width: 100%; min-width: 34rem; font-size: .95rem; }
+  th, td { border: 1px solid var(--line); padding: .5rem .6rem; text-align: left; vertical-align: top; }
+  th { background: var(--card); }
+  nav a { font-weight: 600; }
+</style>
+</head>
+<body>
+<main>
+<nav aria-label="Idioma"><a href="index.html" hreflang="en" lang="en">Read in English</a></nav>
+
+<h1>Política de privacidad</h1>
+<p class="meta">Soakup · En vigor desde 2026-11-20</p>
+
+<div class="summary" role="note">
+  <p><strong>En pocas palabras</strong></p>
+  <ul>
+    <li>Sin cuenta y sin registro. Tus huertos, parcelas, registros de lluvia y riego y ajustes se quedan <strong>en tu móvil</strong>.</li>
+    <li>Para obtener el clima, la app envía <strong>solo una ubicación aproximada</strong> (redondeada a unos 1&nbsp;km) a servicios públicos de clima. Tu ubicación exacta nunca sale del móvil. Como cualquier servidor, esos servicios pueden ver tu dirección IP.</li>
+    <li>La app es gratuita y muestra un <strong>banner de Google AdMob</strong>. Los anuncios se piden solo después de las opciones de consentimiento que se apliquen donde vives. Puedes decir que no al seguimiento publicitario.</li>
+    <li>Puedes borrar todo lo que guarda la app desde <strong>Ajustes &gt; Borrar todos mis datos</strong>.</li>
+  </ul>
+</div>
+
+<h2>1. Quiénes somos</h2>
+<p>Soakup («la app») la publica Borja Alventosa Julia («nosotros»). La app es una calculadora de riego y un cuaderno para huertos. Para cualquier duda sobre esta política, escribe a <a href="mailto:borjawebspubli@gmail.com">borjawebspubli@gmail.com</a>.</p>
+
+<h2>2. Qué se queda en tu móvil</h2>
+<p>La app guarda lo siguiente solo en una base de datos de tu dispositivo. No tenemos ningún servidor que lo reciba y no podemos verlo:</p>
+<ul>
+  <li>tus huertos y parcelas (nombres, cultivo, suelo, sistema de riego, medidas, fechas de siembra, posición en el mapa o croquis);</li>
+  <li>la ubicación de cada huerto (latitud y longitud). Si pulsas «Usar mi ubicación», la app lee tu posición una vez y la guarda en esa base de datos; también puedes escribir las coordenadas a mano;</li>
+  <li>la lluvia y los riegos que anotas, y los datos de clima descargados (se guardan para que la app funcione sin conexión);</li>
+  <li>tus ajustes: idioma, unidades, región del calendario y fechas de heladas.</li>
+</ul>
+<p>No hay cuentas de usuario. No usamos herramientas propias de analítica ni de informes de fallos, y no recogemos tu nombre, correo, contactos, fotos, micrófono, cámara ni datos de salud.</p>
+
+<h2>3. Qué sale de tu móvil y quién lo recibe</h2>
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th scope="col">Destinatario</th><th scope="col">Qué recibe</th><th scope="col">Para qué</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>NASA POWER</strong> (power.larc.nasa.gov)</td>
+      <td>Una ubicación aproximada de tu huerto (latitud y longitud redondeadas a 0,01°, unos 1&nbsp;km, nunca el punto exacto), las fechas pedidas y tu dirección IP.</td>
+      <td>Clima pasado (lluvia y datos para calcular la evapotranspiración).</td>
+    </tr>
+    <tr>
+      <td><strong>National Weather Service / NOAA</strong> (api.weather.gov), huertos en Estados Unidos</td>
+      <td>La misma ubicación aproximada, tu dirección IP, y el nombre y la versión de la app con nuestro contacto en la cabecera de la petición.</td>
+      <td>Previsión de lluvia y de clima.</td>
+    </tr>
+    <tr>
+      <td><strong>MET Norway</strong> (api.met.no), huertos fuera de Estados Unidos y como respaldo</td>
+      <td>La misma ubicación aproximada, tu dirección IP, y el nombre y la versión de la app con nuestro contacto en la cabecera de la petición. Las condiciones de MET Norway indican que guarda la IP y las coordenadas de las peticiones hechas directamente desde apps.</td>
+      <td>Previsión de lluvia y de clima.</td>
+    </tr>
+    <tr>
+      <td><strong>Nuestro alojamiento web</strong></td>
+      <td>Al abrirse, la app descarga un pequeño archivo público con la versión mínima admitida. El alojamiento recibe tu dirección IP y la hora de la petición, como en cualquier petición web. No se envía ningún identificador.</td>
+      <td>Pedir que actualicen quienes tengan versiones muy antiguas.</td>
+    </tr>
+    <tr>
+      <td><strong>Apple Maps</strong></td>
+      <td>Cuando ves un huerto en el mapa satélite, Apple carga las imágenes del mapa y puede ver la zona mostrada, según la <a href="https://www.apple.com/legal/privacy/">política de privacidad de Apple</a>.</td>
+      <td>Mapa satélite de tu huerto.</td>
+    </tr>
+    <tr>
+      <td><strong>Google AdMob</strong></td>
+      <td>Consulta el apartado 5.</td>
+      <td>El banner de publicidad.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<p>Los servicios de clima no reciben de nosotros ningún nombre, cuenta, identificador del dispositivo ni identificador publicitario, y no reciben tus coordenadas exactas ni los registros de lluvia, riego y parcelas que anotas. Son independientes de nosotros y tratan lo que reciben según sus propias políticas:
+<a href="https://www.nasa.gov/privacy/">NASA</a>, <a href="https://www.weather.gov/privacy">National Weather Service</a> y <a href="https://api.met.no/doc/TermsOfService">MET Norway</a>.</p>
+<p>Los servicios que se consultan dependen de dónde esté tu huerto. Los créditos y licencias de los datos están en la app, en Ajustes &gt; Fuentes de datos.</p>
+
+<h2>4. Permiso de ubicación</h2>
+<p>La app pide el permiso de ubicación solo cuando pulsas «Usar mi ubicación» al crear un huerto, y únicamente «mientras se usa la app». Nunca usa tu ubicación en segundo plano. El permiso es opcional: puedes escribir tú mismo la latitud y la longitud. Puedes retirarlo cuando quieras en los Ajustes de iOS.</p>
+
+<h2>5. Anuncios, consentimiento y seguimiento</h2>
+<p>La app es gratuita y muestra un banner servido por <strong>Google AdMob</strong> (Google LLC / Google Ireland Limited). Para mostrarlo, el software publicitario de Google incluido en la app puede recoger y usar, según la <a href="https://policies.google.com/privacy">política de privacidad de Google</a> y <a href="https://policies.google.com/technologies/partner-sites">cómo usa Google la información de las apps que usan sus servicios</a>:</p>
+<ul>
+  <li>el identificador publicitario de tu dispositivo, pero solo si permites el seguimiento en el aviso de iOS;</li>
+  <li>una ubicación aproximada deducida de tu dirección IP;</li>
+  <li>los anuncios que has visto y cómo interactúas con ellos;</li>
+  <li>datos técnicos, como registros de fallos y rendimiento (tiempo de arranque, bloqueos).</li>
+</ul>
+<p>Qué ocurre antes de pedir ningún anuncio:</p>
+<ol>
+  <li><strong>Formulario de consentimiento.</strong> Donde la ley lo exige (por ejemplo, el Espacio Económico Europeo, el Reino Unido y algunos estados de EE. UU.), aparece primero el formulario de consentimiento de Google. No se pide ningún anuncio hasta que se toman las decisiones que te correspondan.</li>
+  <li><strong>Aviso de seguimiento (iOS).</strong> Después la app pregunta si puede usar tu identificador publicitario. Si dices que no, sigues viendo anuncios, pero no personalizados.</li>
+  <li>Solo entonces se inicia el software publicitario.</li>
+</ol>
+<p>Puedes cambiar tus decisiones cuando quieras: <strong>Ajustes &gt; Privacidad de los anuncios</strong> en la app (aparece donde tu región lo exige) y <strong>Ajustes de iOS &gt; Privacidad y seguridad &gt; Seguimiento</strong>. De AdMob solo recibimos informes agregados (como impresiones e ingresos estimados), no información sobre ti.</p>
+<p>Si estás en el EEE o en el Reino Unido, los anuncios personalizados se basan en tu consentimiento, que puedes retirar como se explica arriba. La app no usa los ajustes publicitarios para público infantil porque no se dirige a niños (véase el apartado 9).</p>
+
+<h2>6. Lo que no hacemos</h2>
+<ul>
+  <li>No vendemos tu información personal.</li>
+  <li>No recibimos los datos de tu huerto, tu ubicación ni ningún identificador que te señale.</li>
+  <li>No seguimos tu ubicación en segundo plano ni la usamos para nada que no sea situar tu huerto y obtener su clima.</li>
+  <li>No te exigimos permitir la ubicación ni el seguimiento para usar las funciones de la app.</li>
+</ul>
+
+<h2>7. Cuánto se conservan los datos y cómo borrarlos</h2>
+<p>Los datos de tu móvil se conservan hasta que los borres. Para eliminar todo lo que guarda la app (huertos, parcelas, registros, clima descargado y ajustes), abre <strong>Ajustes &gt; Borrar todos mis datos</strong>. Puedes borrar un huerto o una parcela concretos desde su pantalla, y al desinstalar la app se elimina su base de datos. Como nosotros no tenemos tus datos, no hay nada que borrar por nuestra parte.</p>
+<p>Los datos que reciben los servicios del apartado 3 (por ejemplo, los registros de sus servidores) se conservan según sus propias políticas. Para los datos publicitarios de Google, puedes gestionar o restablecer tus decisiones en los ajustes de privacidad de Apple y de Google, o escribirles directamente.</p>
+
+<h2>8. Tus derechos</h2>
+<p>Según dónde vivas (por ejemplo, bajo el RGPD o el RGPD del Reino Unido, o las leyes de privacidad de varios estados de EE. UU.), puedes tener derecho a acceder, rectificar, suprimir, limitar o trasladar tus datos personales, a oponerte a su tratamiento, a retirar tu consentimiento y a rechazar la publicidad dirigida o la cesión de información personal con fines publicitarios. Usa los controles de la app descritos arriba, contacta con los servicios afectados o escribe a <a href="mailto:borjawebspubli@gmail.com">borjawebspubli@gmail.com</a> y te ayudaremos. Si estás en el EEE o en el Reino Unido, también puedes reclamar ante tu autoridad de protección de datos (en España, la Agencia Española de Protección de Datos).</p>
+<p>Bases jurídicas (EEE y Reino Unido): obtener el clima del huerto que configuras es necesario para prestarte la función que pides; los anuncios personalizados se basan en tu consentimiento. Usar el servicio publicitario de Google puede considerarse «compartir» información personal con fines publicitarios según algunas leyes estatales de EE. UU.; donde sea así, las opciones anteriores te permiten rechazarlo.</p>
+
+<h2>9. Menores</h2>
+<p>La app es para personas aficionadas a la huerta de cualquier edad, pero no se dirige a menores de 13 años y no recogemos a sabiendas información personal de ellos. Si crees que un menor nos ha facilitado información, escríbenos.</p>
+
+<h2>10. Seguridad y transferencias internacionales</h2>
+<p>Todas las conexiones de la app usan HTTPS. Tus datos están en el almacenamiento privado de la app en tu dispositivo, protegido por el sistema operativo. Los servicios del apartado 3 están en Estados Unidos, Noruega y otros países, por lo que los datos que reciben (ubicación aproximada, dirección IP) se tratan fuera de tu país.</p>
+
+<h2>11. Cambios</h2>
+<p>Si cambiamos esta política, actualizaremos la fecha de arriba y, si el cambio es importante, te lo diremos en la app o en las notas de la versión.</p>
+
+<h2>12. Contacto</h2>
+<p>Borja Alventosa Julia · <a href="mailto:borjawebspubli@gmail.com">borjawebspubli@gmail.com</a></p>
+</main>
+</body>
+</html>

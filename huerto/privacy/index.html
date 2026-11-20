@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Privacy Policy – Soakup</title>
+<meta name="description" content="How Soakup handles your data: your garden data stays on your phone, only an approximate location is sent to weather services, and ads use Google AdMob with your consent.">
+<style>
+  :root {
+    --bg: #ffffff; --fg: #1b1f1b; --muted: #55605a; --accent: #1b5e20; --line: #d6ddd8; --card: #f4f7f4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #111512; --fg: #e6ece7; --muted: #a3afa7; --accent: #8bd18f; --line: #2c352e; --card: #1a201b; }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 46rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  h1 { font-size: 1.8rem; line-height: 1.25; margin: 0 0 .25rem; }
+  h2 { font-size: 1.2rem; margin: 2rem 0 .5rem; padding-top: .5rem; border-top: 1px solid var(--line); }
+  p, ul, ol { margin: .6rem 0; }
+  li { margin: .3rem 0; }
+  a { color: var(--accent); }
+  .meta { color: var(--muted); font-size: .9rem; }
+  .summary { background: var(--card); border: 1px solid var(--line); border-radius: .75rem; padding: .75rem 1.1rem; margin: 1.25rem 0; }
+  .summary ul { padding-left: 1.2rem; }
+  .table-wrap { overflow-x: auto; margin: .8rem 0; }
+  table { border-collapse: collapse; width: 100%; min-width: 34rem; font-size: .95rem; }
+  th, td { border: 1px solid var(--line); padding: .5rem .6rem; text-align: left; vertical-align: top; }
+  th { background: var(--card); }
+  nav a { font-weight: 600; }
+</style>
+</head>
+<body>
+<main>
+<nav aria-label="Language"><a href="es.html" hreflang="es" lang="es">Leer en español</a></nav>
+
+<h1>Privacy Policy</h1>
+<p class="meta">Soakup · Effective 2026-11-20</p>
+
+<div class="summary" role="note">
+  <p><strong>In short</strong></p>
+  <ul>
+    <li>No account, no sign-up. Your gardens, plots, rain and watering records, and settings stay <strong>on your phone</strong>.</li>
+    <li>To get the weather, the app sends <strong>only an approximate location</strong> (rounded to about 1&nbsp;km) to public weather services. Your exact location never leaves your phone. Like any server, those services can see your IP address.</li>
+    <li>The app is free and shows a <strong>banner ad from Google AdMob</strong>. Ads are requested only after the consent choices that apply where you live. You can say no to ad tracking.</li>
+    <li>You can erase everything the app stores from <strong>Settings &gt; Delete all my data</strong>.</li>
+  </ul>
+</div>
+
+<h2>1. Who we are</h2>
+<p>Soakup (“the app”) is published by Borja Alventosa Julia (“we”, “us”). The app is a watering calculator and garden log for vegetable gardens. For questions about this policy, write to <a href="mailto:borjawebspubli@gmail.com">borjawebspubli@gmail.com</a>.</p>
+
+<h2>2. What stays on your phone</h2>
+<p>The app stores the following only in a database on your device. We do not run any server that receives it and we cannot see it:</p>
+<ul>
+  <li>your gardens and plots (names, crop, soil, irrigation system, sizes, planting dates, sketch or map position);</li>
+  <li>the location of each garden (latitude and longitude). If you tap “Use my location”, the app reads your position once and keeps it in this database; you can also type coordinates by hand;</li>
+  <li>the rain and watering you log, and the weather data the app has downloaded (kept so the app works offline);</li>
+  <li>your settings: language, units, calendar region and frost dates.</li>
+</ul>
+<p>There are no user accounts. We do not use our own analytics or crash-reporting tools, and we do not collect your name, email, contacts, photos, microphone, camera or health data.</p>
+
+<h2>3. What leaves your phone, and who receives it</h2>
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th scope="col">Recipient</th><th scope="col">What it receives</th><th scope="col">Why</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>NASA POWER</strong> (power.larc.nasa.gov)</td>
+      <td>An approximate location of your garden (latitude and longitude rounded to 0.01°, about 1&nbsp;km, never the exact point), the dates requested, and your IP address.</td>
+      <td>Past weather (rain and the data to compute evapotranspiration).</td>
+    </tr>
+    <tr>
+      <td><strong>National Weather Service / NOAA</strong> (api.weather.gov), gardens in the United States</td>
+      <td>The same approximate location, your IP address, and the app’s name and version with our contact in the request header.</td>
+      <td>Rain and weather forecast.</td>
+    </tr>
+    <tr>
+      <td><strong>MET Norway</strong> (api.met.no), gardens outside the United States and as a fallback</td>
+      <td>The same approximate location, your IP address, and the app’s name and version with our contact in the request header. MET Norway’s terms state that it keeps the IP address and coordinates of requests made directly from apps.</td>
+      <td>Rain and weather forecast.</td>
+    </tr>
+    <tr>
+      <td><strong>Our web host</strong></td>
+      <td>When the app opens it downloads a small public file with the minimum supported app version. The host receives your IP address and the time of the request, as in any web request. No identifier is sent.</td>
+      <td>To ask users of very old versions to update.</td>
+    </tr>
+    <tr>
+      <td><strong>Apple Maps</strong></td>
+      <td>When you view a garden on the satellite map, Apple loads the map images and can see the area shown, under <a href="https://www.apple.com/legal/privacy/">Apple’s privacy policy</a>.</td>
+      <td>Satellite map of your garden.</td>
+    </tr>
+    <tr>
+      <td><strong>Google AdMob</strong></td>
+      <td>See section 5.</td>
+      <td>The banner ad.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<p>The weather services receive no name, account, device identifier or advertising identifier from us, and they do not receive your exact coordinates or the rain, watering and plot records you log. They are independent of us and handle what they receive under their own policies:
+<a href="https://www.nasa.gov/privacy/">NASA</a>, <a href="https://www.weather.gov/privacy">National Weather Service</a> and <a href="https://api.met.no/doc/TermsOfService">MET Norway</a>.</p>
+<p>The services requested depend on where your garden is. The credits and licences of the data are listed in the app under Settings &gt; Data sources.</p>
+
+<h2>4. Location permission</h2>
+<p>The app asks for your location permission only when you tap “Use my location” while creating a garden, and only “while using the app”. It never uses your location in the background. The permission is optional: you can type the latitude and longitude yourself. You can withdraw it at any time in iOS Settings.</p>
+
+<h2>5. Ads, consent and tracking</h2>
+<p>The app is free and shows one banner ad served by <strong>Google AdMob</strong> (Google LLC / Google Ireland Limited). To show it, Google’s advertising software in the app may collect and use, under <a href="https://policies.google.com/privacy">Google’s privacy policy</a> and <a href="https://policies.google.com/technologies/partner-sites">how Google uses information from apps that use its services</a>:</p>
+<ul>
+  <li>your device’s advertising identifier, but only if you allow tracking in the iOS prompt;</li>
+  <li>an approximate location derived from your IP address;</li>
+  <li>the ads you have seen and how you interact with them;</li>
+  <li>technical data such as crash logs and performance (launch time, hangs).</li>
+</ul>
+<p>What happens before any ad is requested:</p>
+<ol>
+  <li><strong>Consent form.</strong> Where the law requires it (for example the European Economic Area, the United Kingdom, and some US states), Google’s consent form appears first. No ad is requested until the choices that apply to you are made.</li>
+  <li><strong>Tracking prompt (iOS).</strong> The app then asks whether it may use your advertising identifier. If you say no, you still see ads, but they are not personalised.</li>
+  <li>Only then is the ads software started.</li>
+</ol>
+<p>You can change your choices at any time: <strong>Settings &gt; Ad privacy</strong> in the app (shown where your region requires it), and <strong>iOS Settings &gt; Privacy &amp; Security &gt; Tracking</strong>. We receive from AdMob only aggregate reports (such as impressions and estimated earnings), not information about you.</p>
+<p>If you are in the EEA or the UK, personalised ads rely on your consent, which you can withdraw as described above. The app does not use child-directed ad settings because it is not aimed at children (see section 9).</p>
+
+<h2>6. What we do not do</h2>
+<ul>
+  <li>We do not sell your personal information.</li>
+  <li>We do not receive your garden data, your location or any identifier that points to you.</li>
+  <li>We do not track your location in the background or use it for anything other than placing your garden and fetching its weather.</li>
+  <li>We do not require you to allow location or tracking to use the app’s features.</li>
+</ul>
+
+<h2>7. How long data is kept and how to delete it</h2>
+<p>Data on your phone is kept until you delete it. To erase everything the app stores (gardens, plots, records, downloaded weather and settings), open <strong>Settings &gt; Delete all my data</strong>. Deleting a single garden or plot is available on its screen, and uninstalling the app removes its database. Because we do not hold your data, there is nothing for us to delete on our side.</p>
+<p>Data that the services in section 3 receive (for example server logs) is kept under their own policies. For Google’s ad data you can manage or reset your choices in your Apple and Google privacy settings, or write to them directly.</p>
+
+<h2>8. Your rights</h2>
+<p>Depending on where you live (for example under the GDPR or the UK GDPR, or the privacy laws of several US states), you may have the right to access, correct, delete, restrict or port your personal data, to object to processing, to withdraw consent, and to opt out of targeted advertising or the sharing of personal information for advertising. Use the in-app controls described above, contact the services concerned, or write to <a href="mailto:borjawebspubli@gmail.com">borjawebspubli@gmail.com</a> and we will help. If you are in the EEA or the UK you may also complain to your data protection authority.</p>
+<p>Legal bases (EEA/UK): fetching weather for the garden you set up is necessary to provide the feature you ask for; personalised ads rely on your consent. Using Google’s advertising service may count as “sharing” personal information for advertising under some US state laws; where that applies, the options above let you opt out.</p>
+
+<h2>9. Children</h2>
+<p>The app is for gardeners of any age, but it is not directed to children under 13 and we do not knowingly collect personal information from them. If you believe a child has provided information, write to us.</p>
+
+<h2>10. Security and international transfers</h2>
+<p>All connections the app makes use HTTPS. Your data lives in the app’s private storage on your device, protected by the operating system. The services in section 3 are located in the United States, Norway and other countries, so the data they receive (approximate location, IP address) is processed outside your country.</p>
+
+<h2>11. Changes</h2>
+<p>If we change this policy we will update the date above and, for significant changes, tell you in the app or in the update notes.</p>
+
+<h2>12. Contact</h2>
+<p>Borja Alventosa Julia · <a href="mailto:borjawebspubli@gmail.com">borjawebspubli@gmail.com</a></p>
+</main>
+</body>
+</html>
