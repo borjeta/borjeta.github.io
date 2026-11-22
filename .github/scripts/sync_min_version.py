@@ -13,7 +13,8 @@ Salvaguardas (todas comprobadas por --selftest):
   - Solo SUBE. Nunca baja `minVersion`.
   - Falla en abierto: sin respuesta, con error, sin resultados (app aún no publicada), con una versión que no sea `x`,
     `x.y` o `x.y.z`, o con un `trackId` que no sea el de la app, NO se toca nada.
-  - Interruptor de emergencia: `"autoForce": false` en version.json PAUSA las subidas automáticas.
+  - Interruptor de emergencia ESTRICTO: `"autoForce"` ausente o `true` = activo; cualquier otro valor (`false`, `"false"`,
+    `0`, `null`...) PAUSA las subidas automáticas.
   - Espera HORAS_ESPERA (4) desde `currentVersionReleaseDate`, para no bloquear mientras la tienda propaga la versión.
   - No fuerza si la versión nueva exige un iOS mínimo MAYOR que el de la versión anterior (`minimumOsVersion`): esos
     usuarios no podrían actualizar y quedarían bloqueados. En ese caso hay que decidirlo a mano.
@@ -91,8 +92,8 @@ def decide(
     c = parse(current)  # ilegible o ausente = nada exigido todavía
     if c is not None and s <= c:
         return None, f"la versión publicada ({fmt(s)}) no es mayor que minVersion ({fmt(c)})"
-    if auto_force is False:
-        return None, "PAUSADO: autoForce=false en version.json (interruptor de emergencia)"
+    if auto_force is not True:  # ESTRICTO: solo `true` (o clave ausente) deja el forzado activo; cualquier otro valor lo pausa
+        return None, f"PAUSADO: autoForce={auto_force!r} en version.json (solo `true` o ausente lo mantiene activo)"
     if released is None:
         return None, "sin currentVersionReleaseDate válida: no se fuerza (falla en abierto)"
     espera = timedelta(hours=wait_hours)
@@ -254,6 +255,10 @@ def selftest() -> int:
         ("no es texto", case(101, "1.0.0"), None),
         ("número desmesurado", case("1." + "9" * 12, "1.0.0"), None),
         ("autoForce=false PAUSA", case("1.0.1", "1.0.0", auto_force=False), None),
+        ("autoForce=\"false\" (texto) PAUSA", case("1.0.1", "1.0.0", auto_force="false"), None),
+        ("autoForce=\"true\" (texto) también pausa: estricto", case("1.0.1", "1.0.0", auto_force="true"), None),
+        ("autoForce=0 PAUSA", case("1.0.1", "1.0.0", auto_force=0), None),
+        ("autoForce=null PAUSA", case("1.0.1", "1.0.0", auto_force=None), None),
         ("autoForce=true sube", case("1.0.1", "1.0.0", auto_force=True), "1.0.1"),
         ("autoForce ausente (por defecto activo)", decide("1.0.1", "1.0.0", released=h(10), now=now, min_os="16.4", baseline_os="16.4")[0], "1.0.1"),
         ("publicada hace 1 h: espera", case("1.0.1", "1.0.0", released=h(1)), None),
