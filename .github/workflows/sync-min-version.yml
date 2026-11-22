@@ -1,0 +1,82 @@
+# Copia de referencia del workflow que vive en el repo `borjeta.github.io` (.github/workflows/sync-min-version.yml).
+# Sube `minVersion` de huerto/version.json cuando una versión nueva YA está publicada en la App Store (ver
+# scripts/forzar-actualizacion/README.md y sync_min_version.py, que se copia en .github/scripts/ de ese repo).
+name: Subir minVersion cuando hay versión nueva en la App Store
+
+on:
+  schedule:
+    - cron: '17,47 * * * *' # cada 30 minutos (GitHub puede retrasarlo unos minutos)
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'No escribir nada, solo mostrar qué haría (true/false)'
+        type: boolean
+        default: true
+      store_version:
+        description: 'PRUEBAS: simula esta versión de la App Store (vacío = consultar la App Store de verdad)'
+        required: false
+        default: ''
+      sim_hours_ago:
+        description: 'PRUEBAS: horas desde la publicación simulada'
+        required: false
+        default: '100'
+      sim_min_os:
+        description: 'PRUEBAS: iOS mínimo de la versión simulada (vacío = el de referencia)'
+        required: false
+        default: ''
+
+permissions:
+  contents: write # commit del version.json y del estado
+  pages: write # pedir la publicación de Pages tras el commit
+  actions: write # reactivar el propio workflow (GitHub desactiva los programados tras 60 días sin actividad)
+
+concurrency:
+  group: sync-min-version
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Consultar la App Store y decidir
+        id: sync
+        env:
+          DRY_RUN: ${{ inputs.dry_run }}
+          STORE_VERSION: ${{ inputs.store_version }}
+          SIM_HOURS_AGO: ${{ inputs.sim_hours_ago }}
+          SIM_MIN_OS: ${{ inputs.sim_min_os }}
+        run: |
+          args=()
+          # En las ejecuciones programadas no hay inputs (todo vacío): se ejecuta de verdad.
+          if [ "$DRY_RUN" = "true" ]; then args+=(--dry-run); fi
+          if [ -n "$STORE_VERSION" ]; then args+=(--store-version "$STORE_VERSION"); fi
+          if [ -n "$SIM_HOURS_AGO" ]; then args+=(--sim-hours-ago "$SIM_HOURS_AGO"); fi
+          if [ -n "$SIM_MIN_OS" ]; then args+=(--sim-min-os "$SIM_MIN_OS"); fi
+          python3 .github/scripts/sync_min_version.py "${args[@]}"
+
+      - name: Publicar el cambio
+        if: steps.sync.outputs.changed == 'true'
+        env:
+          MENSAJE: ${{ steps.sync.outputs.message }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add huerto/version.json huerto/store-sync.json
+          git commit -m "huerto: ${MENSAJE}"
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+      - name: Pedir la publicación de Pages
+        if: steps.sync.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/${GITHUB_REPOSITORY}/pages/builds" || echo "::warning::No se pudo pedir la publicación de Pages (se publicará con el push)"
+
+      - name: Mantener activo el workflow programado
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X PUT "repos/${GITHUB_REPOSITORY}/actions/workflows/sync-min-version.yml/enable" || echo "::warning::No se pudo renovar el workflow"
