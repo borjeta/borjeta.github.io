@@ -15,7 +15,9 @@ Salvaguardas (todas comprobadas por --selftest):
     `x.y` o `x.y.z`, o con un `trackId` que no sea el de la app, NO se toca nada.
   - Interruptor de emergencia ESTRICTO: `"autoForce"` ausente o `true` = activo; cualquier otro valor (`false`, `"false"`,
     `0`, `null`...) PAUSA las subidas automáticas.
-  - Espera HORAS_ESPERA (4) desde `currentVersionReleaseDate`, para no bloquear mientras la tienda propaga la versión.
+  - Espera `autoForceDelayHours` de version.json (por defecto HORAS_ESPERA = 4; acotado a 0-72; valor no numérico = 4)
+    desde `currentVersionReleaseDate`, para no bloquear mientras la tienda propaga la versión. Misma semántica que la app
+    (src/features/update/policy.ts).
   - No fuerza si la versión nueva exige un iOS mínimo MAYOR que el de la versión anterior (`minimumOsVersion`): esos
     usuarios no podrían actualizar y quedarían bloqueados. En ese caso hay que decidirlo a mano.
   - Compara numéricamente (1.10.0 > 1.9.0), igual que la app (src/features/update/version.ts).
@@ -32,6 +34,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import os
 import re
 import sys
@@ -44,6 +47,7 @@ from pathlib import Path
 APP_ID = "6837435714"  # Apple ID de la ficha (src/config/app.ts, APP_STORE_URL)
 COUNTRY = "us"  # la versión es la misma en todos los países
 HORAS_ESPERA = 4  # regla del usuario: esperar N horas (4 por defecto) desde currentVersionReleaseDate
+HORAS_ESPERA_MAX = 72  # tope de `autoForceDelayHours` en version.json (la app lo acota igual)
 LOOKUP = "https://itunes.apple.com/lookup?id={id}&country={country}&t={t}"
 STRICT_VERSION = re.compile(r"^(\d{1,9})(?:\.(\d{1,9}))?(?:\.(\d{1,9}))?$")
 
@@ -72,6 +76,14 @@ def parse_date(raw: object) -> datetime | None:
     except ValueError:
         return None
     return d if d.tzinfo else d.replace(tzinfo=timezone.utc)
+
+
+def parse_delay_hours(raw: object) -> float:
+    """`autoForceDelayHours` de version.json: número finito acotado a 0-72; cualquier otra cosa (texto, null, booleano,
+    ausente, NaN, infinito) -> HORAS_ESPERA (4). Mismo criterio que la app (src/features/update/policy.ts)."""
+    if isinstance(raw, bool) or not isinstance(raw, (int, float)) or not math.isfinite(raw):
+        return float(HORAS_ESPERA)
+    return float(min(HORAS_ESPERA_MAX, max(0, raw)))
 
 
 def decide(
@@ -180,7 +192,8 @@ def run(args: argparse.Namespace) -> int:
         info, why = fetch_store(args.app_id, args.country)
 
     print(f"Versión publicada en la App Store: {info['version'] if info else 'ninguna'} ({why})")
-    print(f"minVersion actual: {current or 'ilegible'} | autoForce: {cfg.get('autoForce', 'no definido (activo)')} | iOS mínimo de referencia: {baseline_os or 'sin referencia'}")
+    wait_hours = parse_delay_hours(cfg.get("autoForceDelayHours"))
+    print(f"minVersion actual: {current or 'ilegible'} | autoForce: {cfg.get('autoForce', 'no definido (activo)')} | espera: {wait_hours:g} h | iOS mínimo de referencia: {baseline_os or 'sin referencia'}")
 
     new_min, motivo = (None, "sin datos de la tienda")
     if info:
@@ -192,6 +205,7 @@ def run(args: argparse.Namespace) -> int:
             now=now,
             min_os=info["min_os"],
             baseline_os=baseline_os,
+            wait_hours=wait_hours,
         )
     print(f"Decisión: {'SUBIR minVersion a ' + new_min if new_min else 'no tocar nada'} ({motivo})")
 
@@ -271,12 +285,41 @@ def selftest() -> int:
         ("iOS mínimo ilegible: no fuerza", case("1.0.1", "1.0.0", min_os=None), None),
         ("sin iOS de referencia: no fuerza", case("1.0.1", "1.0.0", baseline_os=None), None),
         ("fecha futura (reloj raro): espera", case("1.0.1", "1.0.0", released=now + timedelta(hours=2)), None),
+        # autoForceDelayHours (la espera sale de version.json)
+        ("espera 24 h, publicada hace 10 h: espera", case("1.0.1", "1.0.0", wait_hours=24), None),
+        ("espera 24 h, publicada hace 24 h: sube", case("1.0.1", "1.0.0", released=h(24), wait_hours=24), "1.0.1"),
+        ("espera 0 h, publicada ahora: sube", case("1.0.1", "1.0.0", released=now, wait_hours=0), "1.0.1"),
+        ("espera 72 h, publicada hace 71 h: espera", case("1.0.1", "1.0.0", released=h(71), wait_hours=72), None),
+        ("espera 72 h, publicada hace 72 h: sube", case("1.0.1", "1.0.0", released=h(72), wait_hours=72), "1.0.1"),
+        ("espera 0 h y fecha futura: no sube", case("1.0.1", "1.0.0", released=now + timedelta(seconds=1), wait_hours=0), None),
+    ]
+    delays = [
+        # (descripción, valor de autoForceDelayHours en version.json, esperado)
+        ("ausente", None, 4.0),
+        ("0", 0, 0.0),
+        ("12", 12, 12.0),
+        ("0.5", 0.5, 0.5),
+        ("72", 72, 72.0),
+        ("100 se acota a 72", 100, 72.0),
+        ("-5 se acota a 0", -5, 0.0),
+        ("texto \"6\" = no numérico = 4", "6", 4.0),
+        ("true (booleano) = 4", True, 4.0),
+        ("false (booleano) = 4", False, 4.0),
+        ("lista = 4", [6], 4.0),
+        ("NaN = 4", float("nan"), 4.0),
+        ("infinito = 4", float("inf"), 4.0),
+        ("-infinito = 4", float("-inf"), 4.0),
     ]
     fails = 0
     for desc, got, expected in cases:
         ok = got == expected
         fails += 0 if ok else 1
         print(("OK   " if ok else "FALLO"), f"{desc}: {got!r} (esperado {expected!r})")
+    # autoForceDelayHours
+    for desc, raw, expected in delays:
+        got = parse_delay_hours(raw)
+        fails += 0 if got == expected else 1
+        print(("OK   " if got == expected else "FALLO"), f"autoForceDelayHours {desc}: {got!r} (esperado {expected!r})")
     # fechas
     for raw, ok in [("2026-11-22T10:00:00Z", True), ("2026-11-22T10:00:00+00:00", True), ("2026-11-22", True), ("ayer", False), (None, False), (5, False)]:
         got = parse_date(raw) is not None
@@ -287,7 +330,7 @@ def selftest() -> int:
     ok = f == '{ "minVersion": "1.0.1", "autoForce": true }\n' and json.loads(f) == {"minVersion": "1.0.1", "autoForce": True}
     fails += 0 if ok else 1
     print(("OK   " if ok else "FALLO"), f"formato de version.json: {f.strip()}")
-    total = len(cases) + 6 + 1
+    total = len(cases) + len(delays) + 6 + 1
     print(f"\n{total - fails}/{total} comprobaciones correctas")
     return 1 if fails else 0
 
